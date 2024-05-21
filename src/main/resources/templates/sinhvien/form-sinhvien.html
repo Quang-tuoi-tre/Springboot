@@ -24,9 +24,33 @@
       layout:decorate="~{Layout}">
 <head>
     <title>Form Sinh Viên</title>
-    <style>
+    <link rel="stylesheet" href="style.css">
+<style>
+    .btn {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  text-decoration: none;
+  cursor: pointer;
+}
 
-    </style>
+.btn:hover {
+  background-color: #0056b3;
+}
+input{
+width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+input:focus{
+outline: none;
+  border-color: #007bff;
+}
+</style>
 </head>
 <body>
 <section layout:fragment="content">
@@ -42,7 +66,7 @@ red;"></p>
         <p>Khoa: <input type="text" th:field="*{khoa}" /></p>
         <p th:if="${#fields.hasErrors('khoa')}" th:errors="*{khoa}" style="color:
 red;"></p>
-        <p><button type="submit">Submit</button></p>
+        <p><button type="submit" class="btn">Submit</button></p>
     </form>
 </section>
 </body>
