@@ -1,3 +1,4 @@
+/*
 package honhatquang890.gmail.com.lab2.model;
 
 import jakarta.persistence.*;
@@ -17,3 +18,4 @@ public class Order {
     @OneToMany(mappedBy = "order")
     private List<OrderDetail> orderDetails;
 }
+*/

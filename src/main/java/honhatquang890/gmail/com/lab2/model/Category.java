@@ -1,3 +1,4 @@
+/*
 package honhatquang890.gmail.com.lab2.model;
 
 import jakarta.persistence.*;
@@ -16,3 +17,4 @@ public class Category {
     @NotBlank(message = "Tên là bắt buộc")
     private String name;
 }
+*/

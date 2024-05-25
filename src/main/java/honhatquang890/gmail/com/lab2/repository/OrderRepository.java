@@ -1,3 +1,4 @@
+/*
 package honhatquang890.gmail.com.lab2.repository;
 
 import honhatquang890.gmail.com.lab2.model.Product;
@@ -7,3 +8,4 @@ import org.springframework.stereotype.Repository;
 public interface OrderRepository extends JpaRepository<Product, Long> {
 }
 
+*/
