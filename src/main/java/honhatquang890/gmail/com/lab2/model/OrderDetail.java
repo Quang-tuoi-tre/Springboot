@@ -1,4 +1,3 @@
-/*
 package honhatquang890.gmail.com.lab2.model;
 
 import jakarta.persistence.*;
@@ -26,4 +25,3 @@ public class OrderDetail {
     @JoinColumn(name = "order_id")
     private Order order;
 }
-*/

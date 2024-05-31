@@ -1,4 +1,3 @@
-/*
 package honhatquang890.gmail.com.lab2.model;
 
 import jakarta.persistence.*;
@@ -16,5 +15,20 @@ public class Category {
     private Long id;
     @NotBlank(message = "Tên là bắt buộc")
     private String name;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public @NotBlank(message = "Tên là bắt buộc") String getName() {
+        return name;
+    }
+
+    public void setName(@NotBlank(message = "Tên là bắt buộc") String name) {
+        this.name = name;
+    }
 }
-*/
