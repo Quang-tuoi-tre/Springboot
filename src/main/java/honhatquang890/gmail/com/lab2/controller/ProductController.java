@@ -9,6 +9,8 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import jakarta.validation.Valid;
+import org.springframework.web.multipart.MultipartFile;
+
 @Controller
 @RequestMapping("/products")
 public class ProductController {
@@ -31,13 +33,16 @@ public class ProductController {
     }
     // Process the form for adding a new product
     @PostMapping("/add")
-    public String addProduct(@Valid Product product, BindingResult result) {
+    public String addProduct(@Valid Product product, BindingResult result,@RequestParam MultipartFile imageProduct,Model model) {
         if (result.hasErrors()) {
+            model.addAttribute("products", product);
             return "/products/add-product";
         }
         productService.addProduct(product);
+        productService.updateImage(product,imageProduct);
         return "redirect:/products";
     }
+
     // For editing a product
     @GetMapping("/edit/{id}")
     public String showEditForm(@PathVariable Long id, Model model) {
@@ -50,13 +55,14 @@ public class ProductController {
     // Process the form for updating a product
     @PostMapping("/update/{id}")
     public String updateProduct(@PathVariable Long id, @Valid Product product,
-                                BindingResult result) {
+                                BindingResult result,
+                                @RequestParam MultipartFile imageProduct, Model model) {
         if (result.hasErrors()) {
+            model.addAttribute("products", product);
             product.setId(id); // set id to keep it in the form in case of errors
-
-
             return "/products/update-product";
         }
+        productService.updateImage(product,imageProduct);
         productService.updateProduct(product);
         return "redirect:/products";
     }

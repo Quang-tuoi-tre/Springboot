@@ -2,6 +2,8 @@ package honhatquang890.gmail.com.lab2.model;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.validator.constraints.Length;
+
 @Setter
 @Getter
 @RequiredArgsConstructor
@@ -18,6 +20,16 @@ public class Product {
     @ManyToOne
     @JoinColumn(name = "category_id")
     private Category category;
+    @Length(min= 0,max = 200, message = "Tên hình ảnh không quá 200 kí tự")
+    private String image;
+
+    public @Length(min = 0, max = 200, message = "Tên hình ảnh không quá 200 kí tự") String getImage() {
+        return image;
+    }
+
+    public void setImage(@Length(min = 0, max = 200, message = "Tên hình ảnh không quá 200 kí tự") String image) {
+        this.image = image;
+    }
 
     public Long getId() {
         return id;
