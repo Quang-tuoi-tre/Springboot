@@ -40,7 +40,7 @@
         <div class="mb-3">
             <label for="image" class="form-label">Image:</label>
             <!-- <input class="form-control" type="text" th:field="*{image}" id="image" placeholder="image">-->
-            <input class="form-control-file" type="file" id="image" name="imageProduct" accept="image/png,image/jpeg">
+            <input class="form-control-file" type="file" id="image" name="imageProduct" accept="image/*">
             <div class="alert alert-warning" th:if="${#fields.hasErrors('image')}" th:errors="*{image}"></div>
         </div>
         <button type="submit" class="btn btn-primary">Add Product</button>
