@@ -1,6 +1,10 @@
 package honhatquang890.gmail.com.lab2.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import org.hibernate.validator.constraints.Length;
 
@@ -14,11 +18,17 @@ public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @NotEmpty(message = "Name is required")
     private String name;
+    @NotNull(message = "Price is required")
+    @Min(value = 0, message = "Price must be positive")
     private int price;
+    @NotNull(message = "Description is required")
     private String description;
     @ManyToOne
     @JoinColumn(name = "category_id")
+    @NotNull(message = "Category is required")
+    @Valid
     private Category category;
     @Length(min= 0,max = 200, message = "Tên hình ảnh không quá 200 kí tự")
     private String image;

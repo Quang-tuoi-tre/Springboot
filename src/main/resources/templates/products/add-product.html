@@ -23,6 +23,8 @@
             <label for="price" class="form-label">Price:</label>
             <input type="number" th:field="*{price}" class="form-control" id="price"
                    required>
+            <div class="text-danger" th:if="${#fields.hasErrors('price')}"
+                 th:errors="*{price}"></div>
         </div>
         <div class="mb-3">
             <label for="category" class="form-label">Category:</label>
@@ -30,18 +32,21 @@
                 <option th:each="category : ${categories}"
                         th:value="${category.id}" th:text="${category.name}"></option>
             </select>
+            <div class="text-danger" th:if="${#fields.hasErrors('category')}"
+                 th:errors="*{category}"></div>
         </div>
         <div class="mb-3">
             <label for="description" class="form-label">Description:</label>
             <textarea th:field="*{description}" class="form-control"
                       id="description" required></textarea>
+            <div class="text-danger" th:if="${#fields.hasErrors('description')}"
+                 th:errors="*{description}"></div>
 
         </div>
         <div class="mb-3">
             <label for="image" class="form-label">Image:</label>
             <!-- <input class="form-control" type="text" th:field="*{image}" id="image" placeholder="image">-->
             <input class="form-control-file" type="file" id="image" name="imageProduct" accept="image/*">
-            <div class="alert alert-warning" th:if="${#fields.hasErrors('image')}" th:errors="*{image}"></div>
         </div>
         <button type="submit" class="btn btn-primary">Add Product</button>
         <a th:href="@{/products}" class="btn btn-link">Cancel</a>

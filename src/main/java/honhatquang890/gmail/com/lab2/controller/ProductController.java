@@ -36,10 +36,11 @@ public class ProductController {
     public String addProduct(@Valid Product product, BindingResult result,@RequestParam MultipartFile imageProduct,Model model) {
         if (result.hasErrors()) {
             model.addAttribute("products", product);
+            model.addAttribute("categories", categoryService.getAllCategories());
             return "/products/add-product";
         }
-        productService.addProduct(product);
         productService.updateImage(product,imageProduct);
+        productService.addProduct(product);
         return "redirect:/products";
     }
 
