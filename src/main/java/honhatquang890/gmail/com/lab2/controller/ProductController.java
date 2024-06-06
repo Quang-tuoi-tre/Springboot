@@ -59,12 +59,13 @@ public class ProductController {
                                 BindingResult result,
                                 @RequestParam MultipartFile imageProduct, Model model) {
         if (result.hasErrors()) {
+            product.setId(id);
             model.addAttribute("products", product);
-            product.setId(id); // set id to keep it in the form in case of errors
+            model.addAttribute("categories", categoryService.getAllCategories());
+// set id to keep it in the form in case of errors
             return "/products/update-product";
         }
-        productService.updateImage(product,imageProduct);
-        productService.updateProduct(product);
+        productService.updateProduct(product,imageProduct);
         return "redirect:/products";
     }
     // Handle request to delete a product

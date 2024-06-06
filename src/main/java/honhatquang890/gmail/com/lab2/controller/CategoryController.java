@@ -66,7 +66,7 @@ public class CategoryController {
         Category category = categoryService.getCategoryById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid category Id:"
                         + id));
-        categoryService.deleteCategoryById(id);
+        categoryService.deleteCategoryAndProducts(id);
         model.addAttribute("categories", categoryService.getAllCategories());
         return "redirect:/categories";
     }
