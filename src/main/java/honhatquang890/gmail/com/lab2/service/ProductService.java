@@ -44,7 +44,7 @@ public class ProductService {
         Product existingProduct = productRepository.findById(product.getId())
                 .orElseThrow(() -> new IllegalStateException("Product with ID " +
                         product.getId() + " does not exist."));
-        if (!imageProduct.isEmpty()) {
+        /*if (!imageProduct.isEmpty()) {
             try {
                 Path dirImages = Paths.get("static/images");
                 if (!Files.exists(dirImages)) {
@@ -59,7 +59,7 @@ public class ProductService {
             }
         } else {
             product.setImage(existingProduct.getImage());
-        }
+        }*/
         existingProduct.setName(product.getName());
         existingProduct.setPrice(product.getPrice());
         existingProduct.setDescription(product.getDescription());
