@@ -1,6 +1,9 @@
 package honhatquang890.gmail.com.lab2.service;
 
+import honhatquang890.gmail.com.lab2.model.OrderDetail;
 import honhatquang890.gmail.com.lab2.model.Product;
+import honhatquang890.gmail.com.lab2.repository.OrderDetailRepository;
+import honhatquang890.gmail.com.lab2.repository.OrderRepository;
 import honhatquang890.gmail.com.lab2.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -24,6 +27,9 @@ import java.util.UUID;
 public class ProductService {
     private final ProductRepository productRepository;
 
+    private final OrderDetailRepository orderDetailRepository;
+
+    private final OrderRepository orderRepository;
     // Retrieve all products from the database
     public List<Product> getAllProducts() {
         return productRepository.findAll();
@@ -44,7 +50,16 @@ public class ProductService {
         Product existingProduct = productRepository.findById(product.getId())
                 .orElseThrow(() -> new IllegalStateException("Product with ID " +
                         product.getId() + " does not exist."));
-        /*if (!imageProduct.isEmpty()) {
+        if (!imageProduct.isEmpty()) {
+            // Delete existing image file if it exists
+            if (existingProduct.getImage() != null && !existingProduct.getImage().isEmpty()) {
+                Path existingImagePath = Paths.get("static/images", existingProduct.getImage());
+                try {
+                    Files.deleteIfExists(existingImagePath);
+                } catch (IOException e) {
+                    e.printStackTrace(); // Handle the exception appropriately
+                }
+            }
             try {
                 Path dirImages = Paths.get("static/images");
                 if (!Files.exists(dirImages)) {
@@ -59,7 +74,7 @@ public class ProductService {
             }
         } else {
             product.setImage(existingProduct.getImage());
-        }*/
+        }
         existingProduct.setName(product.getName());
         existingProduct.setPrice(product.getPrice());
         existingProduct.setDescription(product.getDescription());
@@ -72,6 +87,19 @@ public class ProductService {
     public void deleteProductById(Long id) {
         Product product = productRepository.findById(id)
                 .orElseThrow(() -> new IllegalStateException("Product with ID " + id + " does not exist."));
+        // Get all order details related to the product
+        List<OrderDetail> orderDetails = orderDetailRepository.findByProductId(id);
+
+        // Delete all related order details and their corresponding orders if no other order details exist
+        for (OrderDetail orderDetail : orderDetails) {
+            Long orderId = orderDetail.getOrder().getId();
+            orderDetailRepository.delete(orderDetail);
+            if (orderDetailRepository.countByOrderId(orderId) == 0) {
+                orderRepository.deleteById(orderId);
+            }
+        }
+
+
         if (product.getImage() != null && !product.getImage().isEmpty()) {
             Path imagePath = Paths.get("static/images", product.getImage());
             try {

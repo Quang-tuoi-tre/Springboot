@@ -65,6 +65,7 @@ public class ProductController {
 // set id to keep it in the form in case of errors
             return "/products/update-product";
         }
+
         productService.updateProduct(product,imageProduct);
         return "redirect:/products";
     }

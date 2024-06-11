@@ -43,7 +43,7 @@ btn-success btn-sm">Edit</a>
                 <a th:href="@{/products/delete/{id}(id=${product.id})}" class="btn
 btn-danger btn-sm" onclick="return confirm('Are you sure?')">Delete</a>
             </td>
-           <!-- <td>
+            <td>
                 <form th:action="@{/cart/add}" method="post">
                     <input type="number" name="quantity" min="1" value="1"
                            class="form-control d-inline-block" style="width: 70px;">
@@ -53,7 +53,7 @@ btn-danger btn-sm" onclick="return confirm('Are you sure?')">Delete</a>
                     <button type="submit" class="btn btn-warning btn-sm">Add to
                         Cart</button>
                 </form>
-            </td>-->
+            </td>
         </tr>
         </tbody>
     </table>
