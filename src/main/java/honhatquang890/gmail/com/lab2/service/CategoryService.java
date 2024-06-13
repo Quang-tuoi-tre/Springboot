@@ -4,6 +4,7 @@ package honhatquang890.gmail.com.lab2.service;
 import honhatquang890.gmail.com.lab2.model.Category;
 import honhatquang890.gmail.com.lab2.model.Product;
 import honhatquang890.gmail.com.lab2.repository.CategoryRepository;
+import honhatquang890.gmail.com.lab2.repository.OrderDetailRepository;
 import honhatquang890.gmail.com.lab2.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -26,6 +27,8 @@ public class CategoryService {
         private final CategoryRepository categoryRepository;
 
         private final ProductRepository productRepository;
+
+        private final OrderDetailRepository orderDetailRepository;
 
     public List<Category> getAllCategories() {
         return categoryRepository.findAll();
@@ -67,10 +70,8 @@ public class CategoryService {
     public void deleteCategoryAndProducts(Long categoryId) {
         Category category = categoryRepository.findById(categoryId)
                 .orElseThrow(() -> new IllegalStateException("Category with ID " + categoryId + " does not exist."));
-
         // Retrieve all products associated with the category
         List<Product> products = productRepository.findByCategory(category);
-
         // Delete each product and its associated image
         for (Product product : products) {
             // Delete the image file if it exists
@@ -82,9 +83,9 @@ public class CategoryService {
                     e.printStackTrace(); // Handle the exception appropriately
                 }
             }
+            orderDetailRepository.deleteByProductId(product.getId());
             productRepository.delete(product);
         }
-
         // Delete the category itself
         categoryRepository.delete(category);
     }

@@ -89,7 +89,6 @@ public class ProductService {
                 .orElseThrow(() -> new IllegalStateException("Product with ID " + id + " does not exist."));
         // Get all order details related to the product
         List<OrderDetail> orderDetails = orderDetailRepository.findByProductId(id);
-
         // Delete all related order details and their corresponding orders if no other order details exist
         for (OrderDetail orderDetail : orderDetails) {
             Long orderId = orderDetail.getOrder().getId();
@@ -98,8 +97,6 @@ public class ProductService {
                 orderRepository.deleteById(orderId);
             }
         }
-
-
         if (product.getImage() != null && !product.getImage().isEmpty()) {
             Path imagePath = Paths.get("static/images", product.getImage());
             try {
