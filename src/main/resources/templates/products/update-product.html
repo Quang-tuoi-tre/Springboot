@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security5"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout}">
 <head>
@@ -45,7 +46,7 @@ product.category.id}"></option>
             <div th:if="${product.image != null}">
                 <img th:src="@{/images/{image}(image=${product.image})}" alt="Product Image" width="200">
             </div>        </div>
-        <button type="submit" class="btn btn-primary">Save Changes</button>
+        <button type="submit" class="btn btn-primary"sec:authorize="hasAuthority('ADMIN')">Save Changes</button>
         <a th:href="@{/products}" class="btn btn-link">Cancel</a>
     </form>
 </section>

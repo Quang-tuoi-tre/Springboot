@@ -14,7 +14,7 @@
         <tr>
             <th>Cart ID</th>
             <th>Quantity</th>
-            <th>Customer Name</th>
+<!--            <th>Customer Name</th>-->
             <th>Product Name</th>
             <th>Action</th>
         </tr>
@@ -23,7 +23,6 @@
         <tr th:each="orderDetail : ${orderDetails}">
             <td th:text="${orderDetail.order.id}"></td>
             <td th:text="${orderDetail.quantity}"></td>
-            <td th:text="${orderDetail.order.customerName}"></td>
             <td th:text="${orderDetail.product.name}"></td>
             <td>
                 <a th:href="@{/order/delete/{id}(id=${orderDetail.id})}" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">Delete</a>

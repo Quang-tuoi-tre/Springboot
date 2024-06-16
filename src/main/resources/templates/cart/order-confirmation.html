@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security5"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout}">
 <head>
@@ -10,8 +11,11 @@
 <body>
 <section layout:fragment="content" class="container mt-3">
     <h1>Order Confirmation</h1>
-    <p th:text="'Cảm ơn ' + ${order.customerName} + ', đơn hàng của bạn đã được đặt thành công.'"></p>
-    <a th:href="@{/products}" class="btn btn-primary">Return to Home</a>
+    <span class="navbar-text ">
+
+        Cảm ơn <span sec:authentication="name" ></span> đã đặt hàng thành công</span>
+    <br>
+        <a th:href="@{/products}" class="btn btn-primary">Return to Home</a>
 </section>
 </body>
 </html>

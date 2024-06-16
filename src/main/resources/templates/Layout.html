@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security5"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
     <meta charset="UTF-8">
@@ -12,7 +13,7 @@
     <div class="container-fluid">
         <a class="navbar-brand text-white" th:href="@{/products}">Sản phẩm </a>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <ul sec:authorize="hasAuthority('ADMIN')" class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
                     <a class="nav-link active text-white" aria-current="page"
                        th:href="@{/categories}" >Thể loại</a>
@@ -21,6 +22,25 @@
                 <li class="nav-item">
                     <a class="nav-link active text-white" aria-current="page"
                        th:href="@{/order/orderdetail}" >Giỏ hàng</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-center">
+                <li class="nav-item d-flex align-items-center"
+                    sec:authorize="isAuthenticated()">
+<span class="navbar-text text-white">
+
+Xin chào, <span sec:authentication="name" style="margin-right: 20px;"></span>
+
+</span>
+                </li>
+                <li class="nav-item" sec:authorize="isAuthenticated()">
+                    <form th:action="@{/logout}" method="post">
+                        <button class="btn btn-outline-light"
+                                type="submit">Logout</button>
+                    </form>
+                </li>
+                <li class="nav-item" sec:authorize="!isAuthenticated()">
+                    <a class="btn btn-outline-light" href="/login">Login</a>
                 </li>
             </ul>
 <!--            href="/sinhvien"-->

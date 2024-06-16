@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security5"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout}">
 <head>
@@ -11,7 +12,7 @@
 <section layout:fragment="content">
     <h1>Categories List</h1>
 
-    <div>
+    <div sec:authorize="hasAuthority('ADMIN')">
         <a th:href="@{/categories/add}" class="btn btn-primary mb-3">Add New
             Category</a>
     </div>
@@ -20,18 +21,20 @@
         <tr>
             <th>ID</th>
             <th>Name</th>
-            <th>Actions</th>
+            <th sec:authorize="hasAuthority('ADMIN')">Actions</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="category : ${categories}">
             <td th:text="${category.id}"></td>
             <td th:text="${category.name}"></td>
-            <td>
+            <td sec:authorize="hasAuthority('ADMIN')">
+                <div >
                 <a th:href="@{/categories/edit/{id}(id=${category.id})}" class="btn
 btn-success btn-sm">Edit</a>
                 <a th:href="@{/categories/delete/{id}(id=${category.id})}"
                    class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">Delete</a>
+                </div>
             </td>
         </tr>
         </tbody>
