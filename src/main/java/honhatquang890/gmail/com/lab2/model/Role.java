@@ -42,13 +42,7 @@ public class Role implements GrantedAuthority {
         this.name = name;
     }
 
-    public @Size(max = 250, message = "Description must be less than 250 characters") String getDescription() {
-        return description;
-    }
 
-    public void setDescription(@Size(max = 250, message = "Description must be less than 250 characters") String description) {
-        this.description = description;
-    }
 
     public Set<User> getUsers() {
         return users;
@@ -58,9 +52,7 @@ public class Role implements GrantedAuthority {
         this.users = users;
     }
 
-    @Size(max = 250, message = "Description must be less than 250 characters")
-    @Column(name = "description", length = 250)
-    private String description;
+
     @ManyToMany(mappedBy = "roles", cascade = CascadeType.ALL)
     @ToString.Exclude
     private Set<User> users = new HashSet<>();
