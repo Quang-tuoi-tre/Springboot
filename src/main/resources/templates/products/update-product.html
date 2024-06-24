@@ -45,8 +45,9 @@ product.category.id}"></option>
             <div class="alert alert-warning" th:if="${#fields.hasErrors('image')}" th:errors="*{image}"></div>
             <div th:if="${product.image != null}">
                 <img th:src="@{/images/{image}(image=${product.image})}" alt="Product Image" width="200">
-            </div>        </div>
-        <button type="submit" class="btn btn-primary"sec:authorize="hasAuthority('ADMIN')">Save Changes</button>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary"sec:authorize="hasAnyAuthority('ADMIN','MASTER')">Save Changes</button>
         <a th:href="@{/products}" class="btn btn-link">Cancel</a>
     </form>
 </section>

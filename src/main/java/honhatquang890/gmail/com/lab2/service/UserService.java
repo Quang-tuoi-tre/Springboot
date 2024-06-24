@@ -18,6 +18,7 @@ import java.nio.file.AccessDeniedException;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -60,18 +61,10 @@ public class UserService implements UserDetailsService {
                 .build();
     }
     // Tìm kiếm người dùng dựa trên tên đăng nhập.
-    public Optional<User> findByUsername(String username) throws
-            UsernameNotFoundException {
-        return userRepository.findByUsername(username);
-    }
+
     // Tìm kiếm tất cả người dùng.
-    /*public List<User> findAll() {
-        return userRepository.findAll();
-    }
-    public Optional<User> findById(Long id){
-        return userRepository.findById(Long.valueOf(id));
-    }*/
-   /* public void updateRole(User user){
+
+    public void updateRole(User user){
         Optional<User> existingUser = findById(user.getId());
         if(existingUser.isPresent()){
             User dbUser = existingUser.get();
@@ -81,7 +74,7 @@ public class UserService implements UserDetailsService {
         else{
             userRepository.save(user);
         }
-    }*/
+    }
     // Cập nhật vai trò của người dùng.
 
     public List<User> findAll() {
@@ -89,8 +82,14 @@ public class UserService implements UserDetailsService {
     public Optional<User> findById(Long id) {
         return userRepository.findById(id);
     }
+    public void updateUserRoles(Long userId, List<Long> roleIds) {
+        User user = userRepository.findById(userId).orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + userId));
+        Set<Role> roles = roleIds.stream().map(roleRepository::findById).filter(Optional::isPresent).map(Optional::get).collect(Collectors.toSet());
+        user.setRoles(roles);
+        userRepository.save(user);
+    }
 
-    public void updateRole(Long userId, String roleName) {
+    /*public void updateRole(Long userId, String roleName) {
         Optional<User> existingUser = findById(userId);
         if (existingUser.isPresent()) {
             User user = existingUser.get();
@@ -107,7 +106,7 @@ public class UserService implements UserDetailsService {
             throw new RuntimeException("User not found");
         }
     }
-
+*/
 
 
 }

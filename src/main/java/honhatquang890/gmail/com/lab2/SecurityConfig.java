@@ -46,7 +46,7 @@ public class SecurityConfig {
                         .permitAll()
                         .requestMatchers("/products/edit/**", "/products/add", "/products/delete", "/order/orderdetail", "/products/categories")
                         .hasAnyAuthority("ADMIN")
-                        .requestMatchers("/user-management/**")
+                        .requestMatchers("/user-management/**","/products/edit/**", "/products/add", "/products/delete", "/order/orderdetail", "/products/categories")
                         .hasAuthority("MASTER")
                         .anyRequest().authenticated()
                 )

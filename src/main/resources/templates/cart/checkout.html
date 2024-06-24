@@ -11,11 +11,11 @@
 <section layout:fragment="content" class="container mt-3">
     <h1>Place Your Order</h1>
     <form th:action="@{/order/submit}" th:object="${order}" method="post">
-        <!--<div class="mb-3">
+        <div class="mb-3">
             <label for="customerName" class="form-label">Your Name:</label>
             <input type="text" id="customerName" th:field="*{customerName}" class="form-control" >
             <div th:if="${#fields.hasErrors('customerName')}" th:errors="*{customerName}" class="text-danger"></div>
-        </div>-->
+        </div>
         <div class="mb-3">
             <label for="deliveryAddress" class="form-label">Delivery Address:</label>
             <input type="text" id="deliveryAddress" th:field="*{deliveryAddress}" class="form-control" >

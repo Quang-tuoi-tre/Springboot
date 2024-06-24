@@ -12,7 +12,7 @@
 <section layout:fragment="content">
     <h1>Categories List</h1>
 
-    <div sec:authorize="hasAuthority('ADMIN')">
+    <div sec:authorize="hasAnyAuthority('ADMIN','MASTER')">
         <a th:href="@{/categories/add}" class="btn btn-primary mb-3">Add New
             Category</a>
     </div>
@@ -21,14 +21,14 @@
         <tr>
             <th>ID</th>
             <th>Name</th>
-            <th sec:authorize="hasAuthority('ADMIN')">Actions</th>
+            <th sec:authorize="hasAnyAuthority('ADMIN','MASTER')">Actions</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="category : ${categories}">
             <td th:text="${category.id}"></td>
             <td th:text="${category.name}"></td>
-            <td sec:authorize="hasAuthority('ADMIN')">
+            <td sec:authorize="hasAnyAuthority('ADMIN','MASTER')">
                 <div >
                 <a th:href="@{/categories/edit/{id}(id=${category.id})}" class="btn
 btn-success btn-sm">Edit</a>

@@ -12,7 +12,7 @@
 <section layout:fragment="content">
     <h1>Products List</h1>
     <div>
-        <a th:href="@{/products/add}" class="btn btn-primary mb-3" sec:authorize="hasAuthority('ADMIN')">Add New
+        <a th:href="@{/products/add}" class="btn btn-primary mb-3" sec:authorize="hasAnyAuthority('ADMIN','MASTER')">Add New
             Product</a>
     </div>
     <table class="table table-bordered table-hover">
@@ -24,7 +24,7 @@
             <th>Description</th>
             <th>Image</th>
             <th>Category Name</th>
-            <th sec:authorize="hasAuthority('ADMIN')">Actions</th>
+            <th sec:authorize="hasAnyAuthority('ADMIN','MASTER')">Actions</th>
             <th sec:authorize="isAuthenticated()">Add To Cart</th>
         </tr>
         </thead>
@@ -38,7 +38,7 @@
                 <img height="120" width="150" th:src="@{/images/{image}(image=${product.image})}" alt="Product Image">
             </td>
             <td th:text="${product.category.name}"></td>
-            <td sec:authorize="hasAuthority('ADMIN')">
+            <td sec:authorize="hasAnyAuthority('ADMIN','MASTER')">
                 <!-- Hiển thị nút sửa và xóa chỉ dành cho người dùng ADMIN -->
                 <div >
                     <a th:href="@{/products/edit/{id}(id=${product.id})}"

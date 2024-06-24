@@ -19,8 +19,8 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    /*@NotBlank(message = "Customer name is required")
-    private String customerName;*/
+    @NotBlank(message = "Customer name is required")
+    private String customerName;
 
     @NotBlank(message = "Delivery address is required")
     private String deliveryAddress;
