@@ -3,7 +3,6 @@ package honhatquang890.gmail.com.lab2.model;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.*;
-import org.hibernate.Hibernate;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -12,7 +11,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 @Getter
 @Setter
@@ -31,6 +29,11 @@ public class User implements UserDetails {
     @Size(min = 1, max = 50, message = "Username must be between 1 and 50 characters")
     @Column(name = "username", length = 50, unique = true)
     private String username;
+
+    @NotBlank(message = "Name is required")
+    @Size(min = 1, max = 50, message = "Name must be between 1 and 50 characters")
+    @Column(name = "name", length = 50, unique = true)
+    private String name;
 
     @NotBlank(message = "Password is required")
     @Column(name = "password", length = 250)
@@ -62,6 +65,14 @@ public class User implements UserDetails {
         return userRoles.stream()
                 .map(role -> new SimpleGrantedAuthority(role.getName()))
                 .toList();
+    }
+
+    public @NotBlank(message = "Name is required") @Size(min = 1, max = 50, message = "Name must be between 1 and 50 characters") String getName() {
+        return name;
+    }
+
+    public void setName(@NotBlank(message = "Name is required") @Size(min = 1, max = 50, message = "Name must be between 1 and 50 characters") String name) {
+        this.name = name;
     }
 
     @Override
