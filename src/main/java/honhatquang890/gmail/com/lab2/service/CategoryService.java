@@ -89,4 +89,20 @@ public class CategoryService {
         // Delete the category itself
         categoryRepository.delete(category);
     }
+    public List<Category> searchCategories(String keyword) {
+        return categoryRepository.findByNameContainingIgnoreCase(keyword);
+    }
+//    public void deleteCategoryAndProducts(Long categoryId) {
+//        Category category = categoryRepository.findById(categoryId)
+//                .orElseThrow(() -> new IllegalStateException("Category with ID " + categoryId + " does not exist."));
+//
+//        List<Product> products = productRepository.findByCategory(category);
+//
+//        if (products.isEmpty()) {
+//            categoryRepository.delete(category);
+//        } else {
+//            int productCount = products.size();
+//            throw new IllegalStateException("Existed " + productCount + " product in category " + category.getName() + ". cannot delete!");
+//        }
+//    }
 }

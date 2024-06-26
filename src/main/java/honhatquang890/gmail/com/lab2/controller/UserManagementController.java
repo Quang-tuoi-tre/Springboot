@@ -15,6 +15,7 @@ import java.nio.file.AccessDeniedException;
 import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/user-management")
@@ -26,7 +27,8 @@ public class UserManagementController {
     @GetMapping
     public String listUsers(Model model) {
         List<User> users = userService.findAll();
-        model.addAttribute("users", users);
+        List<User> user = users.stream().filter(user1 -> user1.getRoles().stream().noneMatch(role->role.getName().equals("MASTER"))).collect(Collectors.toList());
+        model.addAttribute("users", user);
         return "/users/user-management";
 //        return "watthe";
     }

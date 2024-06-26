@@ -30,10 +30,7 @@ public class User implements UserDetails {
     @Column(name = "username", length = 50, unique = true)
     private String username;
 
-    @NotBlank(message = "Name is required")
-    @Size(min = 1, max = 50, message = "Name must be between 1 and 50 characters")
-    @Column(name = "name", length = 50, unique = true)
-    private String name;
+
 
     @NotBlank(message = "Password is required")
     @Column(name = "password", length = 250)
@@ -67,13 +64,7 @@ public class User implements UserDetails {
                 .toList();
     }
 
-    public @NotBlank(message = "Name is required") @Size(min = 1, max = 50, message = "Name must be between 1 and 50 characters") String getName() {
-        return name;
-    }
 
-    public void setName(@NotBlank(message = "Name is required") @Size(min = 1, max = 50, message = "Name must be between 1 and 50 characters") String name) {
-        this.name = name;
-    }
 
     @Override
     public String getPassword() {

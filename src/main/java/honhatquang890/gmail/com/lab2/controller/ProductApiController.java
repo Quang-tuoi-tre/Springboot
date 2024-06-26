@@ -12,9 +12,18 @@ import java.util.List;
 public class ProductApiController {
     @Autowired
     private ProductService productService;
+    /*public ResponseEntity<List<Product>> searchProducts(@RequestParam String keyword) {
+        List<Product> products = productService.searchProducts(keyword);
+        return ResponseEntity.ok(products);
+    }*/
+    @GetMapping("/search")
+    public List<Product> searchProducts(@RequestParam String query) {
+        return productService.searchProducts(query);
+    }
     @GetMapping
-    public List<Product> getAllProducts() {
-        return productService.getAllProducts();
+    public ResponseEntity<List<Product>> getAllProducts() {
+        List<Product> products = productService.getAllProducts();
+        return ResponseEntity.ok(products);
     }
     @PostMapping
     public Product createProduct(@RequestBody Product product) {
